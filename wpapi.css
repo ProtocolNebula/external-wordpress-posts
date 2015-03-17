@@ -1,0 +1,26 @@
+﻿﻿.wpapi {
+    letter-spacing: -.04em;
+}
+
+.wpapi-shortcode li {
+    width: 31%;
+    display: inline-block;
+    vertical-align: top;
+    margin: 1%;
+    letter-spacing: normal;
+}
+
+.wpapi .wpapi-title {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+}
+
+.wpapi p {
+    font-size: 1rem;
+}
+@media screen and (max-width: 600px) {
+.wpapi-shortcode li {
+    width: 47%;
+    display: inline-block;
+}
+}
