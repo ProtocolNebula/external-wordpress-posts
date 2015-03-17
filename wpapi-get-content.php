@@ -47,5 +47,5 @@ function wpapi_set_stylesheet(){
 }
 
 function wpapi_setup_widget(){
-    $WpapiWidget = new WpapiWidget();
+    register_widget( 'WpapiWidget' );
 }
