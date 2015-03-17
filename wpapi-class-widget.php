@@ -3,13 +3,13 @@ require_once "wpapi-class-content.php";
 class WpapiWidget extends WP_Widget
 {
     /**
-     * Widgetを登録する
+     * Register Widget
      */
     function __construct() {
         parent::__construct(
-            'wp_api', // Base ID
-            'WP-API', // Name
-            array( 'description' => "Get WP-API's data", ) // Args
+            'wp_api',
+            'WP-API',
+            array( 'description' => "Get WP-API's data", )
         );
     }
     /**
@@ -18,10 +18,9 @@ class WpapiWidget extends WP_Widget
      */
     public function widget( $args, $instance ) {
 
-        $url = "{$instance['wpapi']}/wp-json/posts";
+        $url = $instance['wpapi'];
         $html = "<ul class='wpapi wpapi-widget'>";
         $wp_api_posts = wp_remote_get($url);
-
         $WpapiContent = new WpapiContents();
         if($wp_api_posts['response']['code'] != 200){
             return $html . $WpapiContent->get_badresponse($wp_api_posts);
@@ -32,9 +31,7 @@ class WpapiWidget extends WP_Widget
 
         $wpapi = $instance['wpapi'];
         echo $args['before_widget'];
- 
         echo $html;
- 
         echo $args['after_widget'];
     }
  
