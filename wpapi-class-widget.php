@@ -48,7 +48,7 @@ class WpapiWidget extends WP_Widget
         $wpapi_id = $this->get_field_id('wpapi');
         ?>
         <p>
-            <label for="<?php echo $wpapi_id; ?>">SiteURL(only RootURL,widthout /wp-json/):</label>
+            <label for="<?php echo $wpapi_id; ?>">SiteURL<span style="display:none">(only RootURL,widthout /wp-json/)</span>:</label>
             <input class="widefat" id="<?php echo $wpapi_id; ?>" name="<?php echo $wpapi_name; ?>" type="text" value="<?php echo esc_attr( $wpapi ); ?>">
         </p>
         <?php
