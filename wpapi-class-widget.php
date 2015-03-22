@@ -12,7 +12,7 @@ class WpapiWidget extends WP_Widget
             array( 'description' => "Get WP-API's data", )
         );
     }
-    
+
     /**
      * @param array $args    
      * @param array $instance
@@ -55,6 +55,10 @@ class WpapiWidget extends WP_Widget
         <p>
             <label for="<?php echo $wpapi_query_id; ?>">Search Query:</label>
             <input class="widefat" id="<?php echo $wpapi_query_id; ?>" name="<?php echo $wpapi_query_name; ?>" type="text" value="<?php echo esc_attr( $wpapi_query ); ?>">
+        </p>
+        <p>
+            <label for="<?php echo $wpapi_num_id; ?>">Search Query:</label>
+            <input class="widefat" id="<?php echo $wpapi_num_id; ?>" name="<?php echo $wpapi_num_name; ?>" type="text" value="<?php echo esc_attr( $wpapi_num ); ?>">
         </p>
         <?php
     }
