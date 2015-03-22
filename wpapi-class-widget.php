@@ -12,6 +12,7 @@ class WpapiWidget extends WP_Widget
             array( 'description' => "Get WP-API's data", )
         );
     }
+    
     /**
      * @param array $args    
      * @param array $instance
@@ -48,8 +49,12 @@ class WpapiWidget extends WP_Widget
         $wpapi_id = $this->get_field_id('wpapi');
         ?>
         <p>
-            <label for="<?php echo $wpapi_id; ?>">SiteURL<span style="display:none">(only RootURL,widthout /wp-json/)</span>:</label>
+            <label for="<?php echo $wpapi_id; ?>">SiteURL(only RootURL,widthout /wp-json/):</label>
             <input class="widefat" id="<?php echo $wpapi_id; ?>" name="<?php echo $wpapi_name; ?>" type="text" value="<?php echo esc_attr( $wpapi ); ?>">
+        </p>
+        <p>
+            <label for="<?php echo $wpapi_query_id; ?>">Search Query:</label>
+            <input class="widefat" id="<?php echo $wpapi_query_id; ?>" name="<?php echo $wpapi_query_name; ?>" type="text" value="<?php echo esc_attr( $wpapi_query ); ?>">
         </p>
         <?php
     }

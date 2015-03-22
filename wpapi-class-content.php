@@ -7,6 +7,7 @@ class WpapiContents
         $html .= "{$wp_api_posts['response']['message']}</dd></dl>";
         return $html;
     }
+    
     function get_posts($wp_api_posts){
         $html = '';
         foreach ($wp_api_posts as $k => $v){
