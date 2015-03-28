@@ -18,9 +18,10 @@
 .wpapi p {
     font-size: 1rem;
 }
+
 @media screen and (max-width: 600px) {
-.wpapi-shortcode li {
-    width: 47%;
-    display: inline-block;
-}
+    .wpapi-shortcode li {
+        width: 47%;
+        display: inline-block;
+    }
 }
