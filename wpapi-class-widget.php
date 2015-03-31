@@ -23,7 +23,10 @@ class WpapiWidget extends WP_Widget
         $html = "<ul class='wpapi wpapi-widget'>";
         $wp_api_posts = wp_remote_get($url);
         $WpapiContent = new WpapiContents();
-        if($wp_api_posts['response']['code'] != 200){
+        if(is_wp_error($wp_api_posts))}
+            $html = "<dl><dt>faild get WP-API</dt></dl>";
+            return $html . "</ul>";
+        } elseif($wp_api_posts['response']['code'] != 200){
             return $html . $WpapiContent->get_badresponse($wp_api_posts);
         }
         $wp_api_posts = json_decode($wp_api_posts['body']);
