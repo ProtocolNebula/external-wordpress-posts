@@ -25,7 +25,7 @@ This shortcode can get many data from WP REST API(Version2).
 ####Get 10 Pages from own Site
 `[wpapi-posts type="pages"]`
 
-####Get 10 Thumbnail Images from http://example.com/
+####Get 10 Thumbnail Images
 `[wpapi-posts type="media" size="thumbnail"]`
 
 == Installation ==
