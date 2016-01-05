@@ -122,7 +122,7 @@ class WpapiShortcodes
         } elseif($wp_api_posts['response']['code'] != 200){
             return $html . $WpapiContent->get_badresponse($wp_api_posts);
         }
-        $wp_api_posts = json_decode($wp_api_posts['body']);
+		$wp_api_posts = json_decode( json_encode( json_decode($wp_api_posts['body']) ),true );
         switch ($type) {
             case 'posts':
                 $html .= $WpapiContent->get_posts($wp_api_posts);

@@ -10,7 +10,6 @@ class WpapiContents
 
     function get_posts($wp_api_posts){
         $html = '';
-		$wp_api_posts = json_decode( json_encode( $wp_api_posts ),true );
         foreach ($wp_api_posts as $k => $v){
             $id = $v['id'];
             $title = $v['title']['rendered'];
@@ -30,10 +29,10 @@ class WpapiContents
     function get_pages($wp_api_posts){
         $html = '';
         foreach ($wp_api_posts as $k => $v){
-            $id = $v->ID;
-            $title = $v->title;
-            $link  = $v->link;
-            $excerpt = $v->excerpt;
+            $id = $v['id'];
+            $title = $v['title']['rendered'];
+            $link  = $v['link'];
+            $excerpt = $v['excerpt']['rendered'];
             $html .= "<li><a href='{$link}'>";
             $html .="<h2 class='wpapi-title'>{$title}</h2>{$excerpt}</a></li>";
         }
