@@ -15,26 +15,18 @@ Simple Shortcode Plugin to get WordPress data from WP REST API(Version2)
 You can use Simple Shortcode [wpapi-posts].
 This shortcode can get many data from WP REST API(Version2).
 
-##Shortcode Example
-###Get 10 post from own Site
-```
-[wpapi-posts]
-```
+###Shortcode Example
+####Get 10 post from own Site
+`[wpapi-posts]`
 
-###Get 5 Posts from http://example.com/ writing about 'WP-API'
-```
-[wpapi-posts s="WP-API" url="http://example.com/" posts_per_page="5"]
-```
+####Get 5 Posts from http://example.com/ writing about 'WP-API'
+`[wpapi-posts s="WP-API" url="http://example.com/" posts_per_page="5"]`
 
-###Get 10 Pages from own Site
-```
-[wpapi-posts type="pages"]
-```
+####Get 10 Pages from own Site
+`[wpapi-posts type="pages"]`
 
-###Get 10 Thumbnail Images from http://example.com/
-```
-[wpapi-posts type="media" size="thumbnail"]
-```
+####Get 10 Thumbnail Images from http://example.com/
+`[wpapi-posts type="media" size="thumbnail"]`
 
 == Installation ==
 
