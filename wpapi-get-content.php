@@ -1,14 +1,14 @@
 <?php
 /**
  * @package wpapi-shortcodes-and-widgets
- * @version 1.0
+ * @version 2.0.0
  */
 /*
-Plugin Name: wpapi shortcodes and widgets
+Plugin Name: WP API Shortcodes
 Plugin URI: http://wordpress.org/plugins/wpapi-shortcodes-and-widgets/
-Description: get WP-API's data, making original widget and shortcodes.
+Description: Simple Shortcode Plugin to get WordPress data from WP REST API(Version2)
 Author: Hidetaka Okamoto
-Version: 1.0
+Version: 2.0.0
 Author URI: http://wp-kyoto.net/
 */
 /*  Copyright 2015 Hidetaka OKamoto
