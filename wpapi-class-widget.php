@@ -14,7 +14,7 @@ class WpapiWidget extends WP_Widget
     }
 
     /**
-     * @param array $args    
+     * @param array $args
      * @param array $instance
      */
     public function widget( $args, $instance ) {
@@ -23,7 +23,7 @@ class WpapiWidget extends WP_Widget
         $html = "<ul class='wpapi wpapi-widget'>";
         $wp_api_posts = wp_remote_get($url);
         $WpapiContent = new WpapiContents();
-        if(is_wp_error($wp_api_posts))}
+        if(is_wp_error($wp_api_posts)){
             $html = "<dl><dt>faild get WP-API</dt></dl>";
             return $html . "</ul>";
         } elseif($wp_api_posts['response']['code'] != 200){
@@ -38,8 +38,8 @@ class WpapiWidget extends WP_Widget
         echo $html;
         echo $args['after_widget'];
     }
- 
-    /** 
+
+    /**
      * @param array $instance
      * @return string|void
      */
@@ -65,11 +65,11 @@ class WpapiWidget extends WP_Widget
         </p>
         <?php
     }
- 
-    /** 
-     * @param array $new_instance 
+
+    /**
+     * @param array $new_instance
      * @param array $old_instance
-     * @return array             
+     * @return array
      */
     function update($new_instance, $old_instance) {
         if(!filter_var($new_instance['wpapi'],FILTER_VALIDATE_URL)){

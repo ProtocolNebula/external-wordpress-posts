@@ -116,7 +116,7 @@ class WpapiShortcodes
         $html = "<ul class='wpapi wpapi-shortcode'>";
 
         $WpapiContent = new WpapiContents();
-        if(is_wp_error($wp_api_posts))}
+        if(is_wp_error($wp_api_posts)){
             $html = "<dl><dt>faild get WP-API</dt></dl>";
             return $html . "</ul>";
         } elseif($wp_api_posts['response']['code'] != 200){
