@@ -42,10 +42,20 @@ class WpapiContents
     function get_media($wp_api_posts, $size){
         $html = '';
         foreach ($wp_api_posts as $k => $v){
-            $id = $v->ID;
-            $title = $v->title;
-            $imgsrc = $v->attachment_meta->sizes->$size->url;
-            $html .= "<li><a href='{$imgsrc}'><img src='{$imgsrc}'><h2 class='wpapi-title'>{$title}</h2></a></li>";
+			if ( ! isset( $v['media_details']['sizes'] ) || ! $v['media_details']['sizes'] ) {
+				continue;
+			}
+            $id = $v['id'];
+            $title = $v['title']['rendered'];
+			$img = $v['media_details']['sizes'];
+			$link = $v['link'];
+			$alt = $v['alt_text'];
+			if ( isset( $img[ $size ] ) && $img[ $size ] ) {
+				$imgsrc = $img[ $size ]['source_url'];
+			} else {
+				$imgsrc = $img['full']['source_url'];
+			}
+            $html .= "<li><a href='{$link}'><img src='{$imgsrc}' alt='{$alt}'><h2 class='wpapi-title'>{$title}</h2></a></li>";
         }
         return $html;
     }
