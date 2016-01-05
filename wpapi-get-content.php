@@ -28,13 +28,11 @@ Author URI: http://wp-kyoto.net/
 */
 require_once 'wpapi-class-content.php';
 require_once 'wpapi-class-shortcode.php';
-require_once 'wpapi-class-widget.php';
 define( 'WPAPI_GET_CONTENT_URL', plugins_url( '', __FILE__ ) );
 
 
 add_shortcode('wpapi-posts', 'wpapi_echo_posts');
 add_action( 'wp_enqueue_scripts', 'wpapi_set_stylesheet' );
-add_action('widgets_init','wpapi_setup_widget');
 
 function wpapi_echo_posts($attr){
     $WpapiShortcodes = new WpapiShortcodes();
@@ -44,8 +42,4 @@ function wpapi_echo_posts($attr){
 
 function wpapi_set_stylesheet(){
     wp_enqueue_style( 'wpapi', WPAPI_GET_CONTENT_URL."/wpapi.css" );
-}
-
-function wpapi_setup_widget(){
-    register_widget( 'WpapiWidget' );
 }
