@@ -54,7 +54,7 @@ class WpapiShortcodes
 
     function set_query($attr){
         extract(shortcode_atts($this->default, $attr));
-        $q = "filter[orderby]={$orderby}";
+        $q = "&filter[orderby]={$orderby}";
         if($m){ $q .= "&filter[m]={$m}";}
         if($p){ $q .= "&filter[p]={$p}";}
         if($posts){ $q .= "&filter[posts]={$posts}";}
@@ -111,7 +111,7 @@ class WpapiShortcodes
             'type' => 'posts',
             'size' => 'medium',
         ), $attr));
-        $url = "{$url}/wp-json/{$type}?{$q}";
+        $url = "{$url}/wp-json/wp/v2/{$type}?_embed{$q}";
         $wp_api_posts = wp_remote_get($url);
         $html = "<ul class='wpapi wpapi-shortcode'>";
 

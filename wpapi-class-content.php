@@ -7,18 +7,22 @@ class WpapiContents
         $html .= "{$wp_api_posts['response']['message']}</dd></dl>";
         return $html;
     }
-    
+
     function get_posts($wp_api_posts){
         $html = '';
+		$wp_api_posts = json_decode( json_encode( $wp_api_posts ),true );
         foreach ($wp_api_posts as $k => $v){
-            $id = $v->ID;
-            $title = $v->title;
-            $link  = $v->link;
-            $thumbnail = $v->featured_image->guid;
-            $excerpt = $v->excerpt;
+            $id = $v['id'];
+            $title = $v['title']['rendered'];
+            $link  = $v['link'];
+            $excerpt = $v['excerpt']['rendered'];
             $html .= "<li><a href='{$link}'>";
-            if($thumbnail){$html .= "<img src='{$thumbnail}'>";}
-            $html .="<h2 class='wpapi-title'>{$title}</h2>{$excerpt}</a></li>";
+			if( isset( $v['_embedded']['https://api.w.org/featuredmedia'] ) && $v['_embedded']['https://api.w.org/featuredmedia'] ) {
+				$img_title = $v['_embedded']['https://api.w.org/featuredmedia'][0]['title']['rendered'];
+				$img_path   =$v['_embedded']['https://api.w.org/featuredmedia'][0]['media_details']['sizes']['thumbnail']['source_url'];
+	            $html .= "<img src='{$img_path}' alt='{$img_title}'>";
+			}
+            $html .="<h2 class='wpapi-title'>{$title}</h2></a>{$excerpt}</li>";
         }
         return $html;
     }
