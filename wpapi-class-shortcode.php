@@ -54,7 +54,7 @@ class WpapiShortcodes
 
     function set_query($attr){
         extract(shortcode_atts($this->default, $attr));
-        $q = "filter[orderby]={$orderby}";
+        $q = "&filter[orderby]={$orderby}";
         if($m){ $q .= "&filter[m]={$m}";}
         if($p){ $q .= "&filter[p]={$p}";}
         if($posts){ $q .= "&filter[posts]={$posts}";}
@@ -111,18 +111,18 @@ class WpapiShortcodes
             'type' => 'posts',
             'size' => 'medium',
         ), $attr));
-        $url = "{$url}/wp-json/{$type}?{$q}";
+        $url = "{$url}/wp-json/wp/v2/{$type}?_embed{$q}";
         $wp_api_posts = wp_remote_get($url);
         $html = "<ul class='wpapi wpapi-shortcode'>";
 
         $WpapiContent = new WpapiContents();
-        if(is_wp_error($wp_api_posts))}
+        if(is_wp_error($wp_api_posts)){
             $html = "<dl><dt>faild get WP-API</dt></dl>";
             return $html . "</ul>";
         } elseif($wp_api_posts['response']['code'] != 200){
             return $html . $WpapiContent->get_badresponse($wp_api_posts);
         }
-        $wp_api_posts = json_decode($wp_api_posts['body']);
+		$wp_api_posts = json_decode( json_encode( json_decode($wp_api_posts['body']) ),true );
         switch ($type) {
             case 'posts':
                 $html .= $WpapiContent->get_posts($wp_api_posts);
