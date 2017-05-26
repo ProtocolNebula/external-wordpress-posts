@@ -65,6 +65,8 @@ class WpapiContents
 			// Avoid errors if reply return more than "posts_per_page"
 			if ($max > 0 and $max <= ++$c) break;
         }
+		
+		$html .= '<a style="padding-top: 25px; clear: both; display: block; text-align: center;" target="_blank" class="view_more" href="'.$this->attr['url'].'">Ver todas</a>';
         return $html;
     }
 
