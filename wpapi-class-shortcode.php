@@ -1,7 +1,12 @@
 <?php
+/*
+ * Original plugin: https://es.wordpress.org/plugins/wpapi-shortcode-and-widgets/
+ */
 require_once "wpapi-class-content.php";
 class WpapiShortcodes
 {
+	private $attr; // Attributes received
+	
     private $default = array(
             'm' => '',
             'p' => '',
@@ -21,8 +26,8 @@ class WpapiShortcodes
             'tb' => '',
             'pb' => '',
             'author' => '',
-            'order' => 'DESC',
-            'orderby' => 'date',
+            'order' => '',
+            'orderby' => '',
             'year' => '',
             'monthnum' => '',
             'day' => '',
@@ -49,13 +54,15 @@ class WpapiShortcodes
             'term' => '',
             'cpage' => '',
             'post_type' => '',
-            'posts_per_page' => 10
+            'posts_per_page' => 4
         );
 
     function set_query($attr){
         extract(shortcode_atts($this->default, $attr));
-        $q = "&filter[orderby]={$orderby}";
-        if($m){ $q .= "&filter[m]={$m}";}
+        //$q = "&filter[orderby]={$orderby}";
+        $q = '';
+		$this->attr = $attr;
+        /*if($m){ $q .= "&filter[m]={$m}";}
         if($p){ $q .= "&filter[p]={$p}";}
         if($posts){ $q .= "&filter[posts]={$posts}";}
         if($w){ $q .= "&filter[w]={$w}";}
@@ -98,7 +105,7 @@ class WpapiShortcodes
         if($robots){ $q .= "&filter[robots]={$robots}";}
         if($taxonomy){ $q .= "&filter[taxonomy]={$taxonomy}";}
         if($term){ $q .= "&filter[term]={$term}";}
-        if($cpage){ $q .= "&filter[cpage]={$cpage}";}
+        if($cpage){ $q .= "&filter[cpage]={$cpage}";}*/
         if($post_type){ $q .= "&filter[post_type]={$post_type}";}
         if($posts_per_page){$q .= "&filter[posts_per_page]={$posts_per_page}";}
         return $q;
@@ -112,17 +119,12 @@ class WpapiShortcodes
             'size' => 'medium',
         ), $attr));
         $url = "{$url}/wp-json/wp/v2/{$type}?_embed{$q}";
-        $wp_api_posts = wp_remote_get($url);
-        $html = "<ul class='wpapi wpapi-shortcode'>";
 
-        $WpapiContent = new WpapiContents();
-        if(is_wp_error($wp_api_posts)){
-            $html = "<dl><dt>faild get WP-API</dt></dl>";
-            return $html . "</ul>";
-        } elseif($wp_api_posts['response']['code'] != 200){
-            return $html . $WpapiContent->get_badresponse($wp_api_posts);
-        }
-		$wp_api_posts = json_decode( json_encode( json_decode($wp_api_posts['body']) ),true );
+        $wp_api_posts = $this->getDataFromURL($url);
+
+        $WpapiContent = new WpapiContents($this->attr);
+        $html = "<div class='row gutter k-equal-height clear-wrapper-margin'>";
+        
         switch ($type) {
             case 'posts':
                 $html .= $WpapiContent->get_posts($wp_api_posts);
@@ -134,7 +136,57 @@ class WpapiShortcodes
                 $html .= $WpapiContent->get_media($wp_api_posts, $size);
                 break;
         }
-        $html .= "</ul>";
+        $html .= "</div>";
         return $html;
     }
+
+    /**
+     * Get data from remote.
+     * First try to get locally. It don't use transitions because remote server can be down
+     * @param type $url Remote wordpress url
+     * @return type
+     */
+    private function getDataFromURL($url) {
+        $option_name = 'ewp-' . $url;
+
+        // ONLY FOR TESTING
+        //delete_option($option_name);
+        // Load stored cache
+        $data = get_option($option_name);
+        if ($data) {
+            $data = json_decode($data, true);
+        }
+
+        // If no cache / is time to renew...
+        if (!$data or $data['renew'] <= time()) {
+            $wp_api_posts = wp_remote_get($url);
+
+            //$WpapiContent = new WpapiContents();
+            if (is_wp_error($wp_api_posts)) {
+                // Failed to load URL
+                $data['renew'] = time() + 180; // Force 3 minutes
+                /* $html = "<dl><dt>faild get WP-API</dt></dl>";
+                  return $html . "</ul>"; */
+            } elseif ($wp_api_posts['response']['code'] != 200) {
+                $data['renew'] = time() + 180; // Force 3 minutes
+                //return $html . $WpapiContent->get_badresponse($wp_api_posts);
+            } else {
+                $data['renew'] = time() + 600; // 10 minutes cache
+                $data['posts'] = json_decode(json_encode(json_decode($wp_api_posts['body'])), true);
+            }
+
+            // Prepare data to save
+            $save = json_encode($data);
+
+            // Delete stored data
+            if ($data) {
+                delete_option($option_name);
+            }
+            add_option($option_name, $save, null, false);
+        }
+
+        // Return posts saved
+        return $data['posts'];
+    }
+
 }

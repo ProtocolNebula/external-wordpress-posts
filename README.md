@@ -1,6 +1,7 @@
-#WP API Shortcodes
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/hideokamoto/wpapi-shortcodes-and-widgets/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/hideokamoto/wpapi-shortcodes-and-widgets/?branch=master)
-[![WordPress](https://wordpress.org/plugins/wpapi-shortcode-and-widgets/)](https://img.shields.io/wordpress/plugin/dt/wpapi-shortcodes-and-widgets.svg)
-[![WordPress](https://wordpress.org/plugins/wpapi-shortcode-and-widgets/)](https://img.shields.io/wordpress/plugin/v/wpapi-shortcodes-and-widgets.svg)
-[![WordPress](https://wordpress.org/plugins/wpapi-shortcode-and-widgets/)](https://img.shields.io/wordpress/v/wpapi-shortcodes-and-widgets.svg)
-[![WordPress](https://wordpress.org/plugins/wpapi-shortcode-and-widgets/)](https://img.shields.io/wordpress/plugin/r/wpapi-shortcodes-and-widgets.svg)
+# External wordpress posts
+
+This is only a "patch" for myself from [![WordPress](https://github.com/hideokamoto/wpapi-shortcodes-and-widgets)]
+
+It includes a small "cache" for replies and other things.
+
+This script is "dedicated" to download posts from external wordpress trhough native API (with json).
